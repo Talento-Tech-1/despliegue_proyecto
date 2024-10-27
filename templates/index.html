@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Área Productiva</title>
+    <style>
+        body {
+            font-family: 'Century Gothic', sans-serif; /* Estilo de letra Century Gothic */
+            background-image: url("{{ url_for('static', filename='img.png') }}"); /* Ruta a la imagen de fondo */
+            background-size: cover; /* Cubre todo el fondo */
+            background-position: center; /* Centra la imagen */
+            margin: 0;
+            padding: 20px;
+            display: flex; /* Flexbox para centrar el contenido */
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            height: 100vh; /* Altura completa de la ventana */
+            flex-direction: column; /* Alinear en columna */
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con algo de transparencia */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            width: 300px; /* Ancho fijo del formulario */
+            margin-top: 20px; /* Espacio superior */
+        }
+        h1 {
+            color: white; /* Color del título en blanco */
+            margin-bottom: 10px; /* Espacio debajo del título */
+        }
+        p {
+            text-align: center; /* Centrar el texto de la descripción */
+            margin-bottom: 20px; /* Espacio debajo de la descripción */
+            color: white; /* Color de la descripción en blanco */
+            font-size: 1.2em; /* Tamaño de fuente descripción */
+            font-weight: bold; /* Negrita */
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        select, input[type="number"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #28a745; /* Color verde para el botón */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838; /* Color más oscuro en hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>CALCULADORA DE ÁREA PRODUCTIVA Y RENDIMIENTO DE CULTIVOS</h1>
+    <p>Seleccione el tipo de cultivo y el departamento e ingrese el área sembrada en hectáreas (ha) para obtener una estimación del área que será productiva en términos de área cultivada y el rendimiento en toneladas por hectárea (t/ha) de esa área.</p>
+    <form action="/predecir" method="POST">
+        <label for="area">Ingrese el área sembrada (ha):</label>
+        <input type="number" id="area" name="area" required min="0" step="0.01">
+
+        <label for="cultivo">Seleccione un cultivo:</label>
+        <select id="cultivo" name="cultivo" required>
+            <option value="Aguacate">Aguacate</option>
+            <option value="Ahuyama">Ahuyama</option>
+            <option value="Arveja">Arveja</option>
+            <option value="Arroz">Arroz</option>
+            <option value="Banano">Banano</option>
+            <option value="Cacao">Cacao</option>
+            <option value="Caña">Caña</option>
+            <option value="Cebolla de bulbo">Cebolla de bulbo</option>
+            <option value="Cebolla de rama">Cebolla de rama</option>
+            <option value="Chontaduro">Chontaduro</option>
+            <option value="Fique">Fique</option>
+            <option value="Frijol">Frijol</option>
+            <option value="Maíz">Maíz</option>
+            <option value="Mandarina">Mandarina</option>
+            <option value="Mango">Mango</option>
+            <option value="Mora">Mora</option>
+            <option value="Naranja">Naranja</option>
+            <option value="Papa">Papa</option>
+            <option value="Palma de aceite">Palma de aceite</option>
+            <option value="Patilla">Patilla</option>
+            <option value="Piña">Piña</option>
+            <option value="Plátano">Plátano</option>
+            <option value="Soya">Soya</option>
+            <option value="Tomate">Tomate</option>
+            <option value="Trigo">Trigo</option>
+            <option value="Yuca">Yuca</option>
+            <option value="Limón">Limón</option>
+            <option value="Ñame">Ñame</option>
+        </select>
+
+        <label for="departamento">Seleccione un departamento:</label>
+        <select id="departamento" name="departamento" required>
+            <option value="Antioquia">Antioquia</option>
+            <option value="Arauca">Arauca</option>
+            <option value="Atlántico">Atlántico</option>
+            <option value="Bolívar">Bolívar</option>
+            <option value="Boyacá">Boyacá</option>
+            <option value="Caldas">Caldas</option>
+            <option value="Casanare">Casanare</option>
+            <option value="Cauca">Cauca</option>
+            <option value="Córdoba">Córdoba</option>
+            <option value="Cundinamarca">Cundinamarca</option>
+            <option value="Chocó">Chocó</option>
+            <option value="Guainía">Guainía</option>
+            <option value="Guaviare">Guaviare</option>
+            <option value="Huila">Huila</option>
+            <option value="La Guajira">La Guajira</option>
+            <option value="Magdalena">Magdalena</option>
+            <option value="Meta">Meta</option>
+            <option value="Nariño">Nariño</option>
+            <option value="Norte de Santander">Norte de Santander</option>
+            <option value="Putumayo">Putumayo</option>
+            <option value="Quindío">Quindío</option>
+            <option value="Risaralda">Risaralda</option>
+            <option value="Santander">Santander</option>
+            <option value="Sucre">Sucre</option>
+            <option value="Tolima">Tolima</option>
+            <option value="Valle del Cauca">Valle del Cauca</option>
+            <option value="Vaupés">Vaupés</option>
+            <option value="Vichada">Vichada</option>
+            <option value="Archipiélago de San Andrés, Providencia y Santa Catalina">Archipiélago de San Andrés, Providencia y Santa Catalina</option>
+            <option value="Amazonas">Amazonas</option>
+            <option value="Caquetá">Caquetá</option>
+            <option value="Cesar">Cesar</option>
+        </select>
+
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
